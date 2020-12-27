@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creation d'un produit{% endblock %}
+
+{% form_theme form 'product/_collection.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h1>Ajouter un nouveau produit</h1>
+    
+    {{ form_start(form)}}
+
+    <div class="form-group">
+
+    </div>
+
+    {{ form_widget(form)}}
+    
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    {{ form_end(form)}}
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="/js/product.js"></script>
+{% endblock %}
+
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Creation d'un produit{% endblock %}
+
+{% form_theme form _self %}
+{% block body %}
+<div class="container">
+    <h1>Ajouter un nouveau produit</h1>
+    
+    {{ form_start(form)}}
+
+    <div class="form-group">
+
+    </div>
+
+    {{ form_widget(form)}}
+    
+    {{ form_end(form)}}
+</div>
+
+{% endblock %}
+
+{% block form_row %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+
+{% block text_widget %}
+    <input type="text" name="{{ full_name }}" id="{{id}}" class="form-control">
+{% endblock %}
+
+{% block url_widget %}
+    <input type="text" name="{{ full_name }}" id="{{id}}" class="form-control">
+{% endblock %}
+
+{% block textarea_widget %}
+    <input type="text" name="{{ full_name }}" id="{{id}}" class="form-control">
+{% endblock %} #}

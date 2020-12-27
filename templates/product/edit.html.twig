@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un produit{% endblock %}
+
+{% form_theme form 'product/_collection.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h1>Modifier le produit : {{product.title}}</h1>
+    
+    {{ form_start(form)}}
+
+    {{ form_widget(form)}}
+    
+    <button type="submit" class="btn btn-primary">Enregister les modifications</button>
+    
+    {{ form_end(form)}}
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="/js/product.js"></script>
+{% endblock %}
