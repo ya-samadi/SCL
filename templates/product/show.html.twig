@@ -46,18 +46,22 @@
             </div>
         </div>
         <div class="col">
+            {% set p = product.owner %}
             <div class="row">
-                <div class="col-4">
-                    <img src="https://picsum.photos/id/1005/100/100" alt="avatar Yahya SAMADI">
+                <div class="col-3">
+                    <a href="{{ path('user_show', {'slug' : p.slug }) }}">
+                        <img src="{{ p.picture }}" class="avatar avatar-medium" alt="Avatar de {{ p.fullName }}">
+                    </a>
                 </div>
                 <div class="col">
-                    <h3>Yahya SAMADI</h3>
-                    <span class="badge badge-primary">3 produits</span>
+                
+                    <a href="{{ path('user_show', {'slug' : p.slug }) }}">
+                        <h3>{{ p.fullName }}</h3>
+                    </a>
+                    <span class="badge badge-primary">{{ p.products | length }} produits</span>
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea recusandae omnis vel tempora molestias illo numquam provident maxime in odio!</p>
-            <p>Voluptas repudiandae ipsa voluptatem perferendis aliquam, sequi, cumque laborum eos omnis repellendus reprehenderit alias impedit assumenda hic cupiditate error quam?</p>
-            <p>Hic, nihil ipsa placeat impedit ea soluta tempora. Non, repellendus. Repellendus mollitia cumque error distinctio animi! Reprehenderit suscipit commodi voluptatibus.</p>
+            {{ p.description | raw}}
         </div>
     </div>
 </div>

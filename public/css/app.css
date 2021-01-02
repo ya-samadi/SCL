@@ -19,8 +19,32 @@ div.carousel-caption {
 }
 
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.avatar {
+  max-width: 128px;
+  max-height: 128px;
+  border-radius: 50%;
+}
+
+.avatar-medium {
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.avatar-mini {
+  max-width: 24px;
+  max-height: 24px;
+}
+
+.card-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
