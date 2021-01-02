@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Product;
@@ -23,6 +24,24 @@ class AppFixtures extends Fixture
 	{
 		$faker = Factory::create('FR-fr');
 		
+		// Gestion des roles
+
+		$adminRole = new Role();
+		$adminRole->setTitle('ROLE_ADMIN');
+		$manager->persist($adminRole);
+
+		$adminUser = new User();
+		$adminUser->setFirstName('Yahya')
+				->setLastName('SAMADI')
+				->setEmail('yasamadi@hotmail.com')
+				->setHash($this->encoder->encodePassword($adminUser, 'root'))
+				->setPicture('https://randomuser.me/api/portraits/men/25.jpg')
+				->setIntroduction($faker->sentence())
+				->setDescription("<p>".join("</p><p>", $faker->paragraphs(3)). "</p>")
+				->addUserRole($adminRole);
+				
+		$manager->persist($adminUser);
+
 		// Gestion des utilisateurs
 		$users = [];
 		$genres = ['male', 'female'];
@@ -37,7 +56,7 @@ class AppFixtures extends Fixture
 			$pictureId = mt_rand(1, 99).'.jpg';
 
 			$picture .= ($genre == "male" ? 'men/' : 'women/').$pictureId;
-
+			
 			$hash = $this->encoder->encodePassword($user, 'password');
 
 			$user->setFirstName($faker->firstname($genre))

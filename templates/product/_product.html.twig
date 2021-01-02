@@ -6,10 +6,16 @@
             <img src="{{ product.coverImage }}" alt="" width="100%" height="200">
         </a>
         <div class="card-body">
-            <p class="card-text">{{ product.description|raw }}</p>
+            <p class="card-text">{{ product.title }}</p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price : {{ product.price }} $</li>
+            <li class="list-group-item">
+            Price : {{ product.price }} $
+            {% if app.user and app.user == product.owner %}
+            <a href="{{ path('products_edit', {'slug': product.slug}) }}" class="btn btn-secondary float-right">Modifier le produit</a>
+            {% endif %}
+            </li>
+            
         </ul>
     </div>
 </div>
