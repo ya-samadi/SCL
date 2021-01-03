@@ -7,6 +7,7 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Product;
+use App\Entity\Commande;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -90,7 +91,7 @@ class AppFixtures extends Fixture
 					->setOwner($user);
 			
 			for ($j = 1; $j <= mt_rand(2, 5); $j++)
-			{	
+			{
 				$image = new Image();
 
 				$image->setUrl("https://picsum.photos/id/".mt_rand(1, 1000)."/".mt_rand(200, 1000)."/".mt_rand(200, 1000))
@@ -99,6 +100,32 @@ class AppFixtures extends Fixture
 					
 				$manager->persist($image);
 			}
+
+			// Gestion des commandes
+			for ($j = 1; $j <= mt_rand(0, 10); $j++)
+			{
+				$commande = new Commande();
+
+				$createdAt = $faker->dateTimeBetween('-6 mounths');
+				$duration = mt_rand(15, 30);
+				$livraisonDate = (clone $createdAt)->modify("+$duration days");
+				$quantity = mt_rand(1, $product->getQuantity());
+				$amount = $quantity * $product->getPrice();
+				$commander = $users[mt_rand(0, count($users) - 1)];
+				$comment = $faker->paragraph();
+
+				$commande->setCommander($commander)
+						->addProduct($product)
+						->setQuantity($quantity)
+						->setCreatedAt($createdAt)
+						->setLivraisonDate($livraisonDate)
+						->setAmount($amount)
+						->setComment($comment)
+				;
+						
+				$manager->persist($commande);
+			}
+
 			$manager->persist($product);
 		}
 

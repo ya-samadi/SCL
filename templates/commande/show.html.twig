@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande n°{{ commande.id }}{% endblock %}
+
+{% block body %}
+{% set product = commande.product %}
+{% set owner = product.owner %}
+<div class="container">
+    <h1>Votre Commande (n° {{ commande.id }})</h1>
+
+    {% if app.request.query.get('withAlert') %}
+
+    <div class="alert alert-success">
+        <h4 class="alert-heading">Bravo !</h4>
+        <p>
+            Votre commande auprès de
+            <strong>
+                <a href="{{ path('user_show', {'slug': owner.slug}) }}">{{ owner.fullName }}</a>
+            </strong>
+            pour le produit
+            <strong>
+                <a href="{{  path('products_show', {'slug': product.slug }) }}">{{ product.title }}</a>
+            </strong>
+            a bien été prise en compte !
+        </p>
+    </div>
+
+    {% endif %}
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-light">
+                <h2>Détails</h2>
+                <dl class="row">
+                    <dt class="col-md-4">Numéro</dt>
+                    <dd class="col-md-8">{{commande.id}}</dd>
+                    <dt class="col-md-4">Date de livraison</dt>
+                    <dd class="col-md-8">{{commande.livraisonDate | date('d/m/Y') }}</dd>
+                    <dt class="col-md-4">Quantité</dt>
+                    <dd class="col-md-8">{{commande.quantity}}</dd>
+                    <dt class="col-md-4">Montant total</dt>
+                    <dd class="col-md-8">{{commande.amount}} &euro;</dd>
+                    <dt class="col-md-4">Commentaire</dt>
+                    <dd class="col-md-8">{{commande.comment}}</dd>
+                </dl>
+                <hr>
+
+                <h2 class="alert-heading">Votre fournisseur</h2>
+
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <img src="{{ owner.picture }}" class="avatar avatar-medium" alt="Avatar de {{ owner.fullName }}">
+                    </div>
+                    <div class="col-9">
+                        <h4>
+                            <a href="{{ path('user_show', {'slug': owner.slug}) }}">{{ owner.fullName }}</a>
+                        </h4>
+                        <span class="badge badge-primary">{{ owner.products | length }} products</span>
+                    </div>
+                </div>
+                {{ owner.description|raw}}
+                <a class="btn btn-primary" href="{{ path('user_show', {'slug': owner.slug}) }}">Plus d'info sur {{ owner.firstName }}</a>
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Votre Produit</h2>
+
+                <h4>
+                    <a href="{{  path('products_show', {'slug': product.slug }) }}">{{ product.title }}</a>
+                </h4>
+
+                <img class="img-fluid" src="{{ product.coverImage }}" alt="Image de {{ product.title }}">
+
+                {{product.description|raw}}
+
+                <a href="{{  path('products_show', {'slug': product.slug }) }}" class="btn btn-primary">Plus d'info</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

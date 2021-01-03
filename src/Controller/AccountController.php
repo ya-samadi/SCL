@@ -181,5 +181,16 @@ class AccountController extends AbstractController
         ]);
     }
 
+    /**
+     * Permet d'afficher la liste des commandes faites pas l'utilisateur
+     *
+     * @Route("/account/commandes", name="account_commandes")
+     * @return Response
+     */
+    public function commandes()
+    {
+        return $this->render('account/commandes.html.twig');
+    }
+
 
 }

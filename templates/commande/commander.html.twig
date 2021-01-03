@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commander le produit : {{ product.title }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Commande pour le produit : {{ product.title }}</h1>
+
+    <p>Vous êtes sur le point de commander le produit de <strong>{{ product.owner.fullName }}</strong>, dites nous tout, on s'occupe du reste !</p>
+
+    {{ form_start(form) }}
+    <div class="alert alert-light">
+        <div class="row">
+            <div class="col">
+            {{ form_row(form.quantity)}}
+            </div>
+            <div class="col">
+            {{ form_row(form.livraisonDate)}}
+            </div>
+        </div>
+
+
+        <h4>Montant a payer : <span id="amount">...</span> €</h4>
+
+        <h4 class="mt-4">Vous avez un commentaire ?</h2>
+        {{ form_widget(form.comment)}}
+    </div>
+
+    <button type="submit" class="btn btn-success float-right">Je commande !</button>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        $(document).ready(function()
+        {
+            debugger
+            $('#commande_quantity').on('change', calculateAmount)
+        });
+
+        function calculateAmount()
+        {
+            const quantity = $('#commande_quantity').val();
+
+            const amount = quantity * {{ product.price }};
+
+            $('#amount').text(amount);
+        }
+
+
+    </script>
+
+{% endblock %}

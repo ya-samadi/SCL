@@ -10,7 +10,7 @@
         <p class="h2">
             Prix <strong>{{ product.price }} $</strong> 
         </p>
-        <a href="#" class="btn btn-primary">Acheter !</a>
+        <a href="{{ path('commande_create', {'slug': product.slug}) }}" class="btn btn-primary">Commander !</a>
         {% if app.user and app.user == product.owner %}
         <a href="{{ path('products_edit', {'slug': product.slug}) }}" class="btn btn-secondary">Modifier le produit</a>
         <a href="{{ path('products_delete', {'slug': product.slug}) }}" class="btn btn-danger" onclick="return confirm(`Êtes vous sure de vouloir supprimer le produit : {{product.title}} .`)">Supprimer le produit</a>

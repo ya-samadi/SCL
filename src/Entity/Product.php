@@ -71,9 +71,15 @@ class Product
      */
     private $owner;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="products")
+     */
+    private $commandes;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     /**
@@ -208,6 +214,33 @@ class Product
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            $commande->removeProduct($this);
+        }
 
         return $this;
     }

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos commandes passées et à venir{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Mes commandes</h1>
+    <div class="alert alert-info mt-3">
+        <p>Retrouvez ci-dessous toutes vos commandes</p>
+    </div>
+
+    {% for  commande in app.user.commandes %}
+        {% set product = commande.product %}
+        <div class="row my-4">
+            <div class="col-4">
+                <img src="{{ product.coverImage }}" alt="Photo de du produit {{ product.title }}" class="img-fluid">
+            </div>
+            <div class="col-8">
+                <h4>{{ product.title }}</h4>
+                <p>
+                    Commande <strong>n°{{commande.id}}</strong>
+                    pour le {{commande.livraisonDate|date('d/m/Y')}}<br>
+                    Quantité : {{commande.quantity}} | Prix : {{commande.amount}} &euro;<br>
+                    
+                </p>
+                <a href="{{ path('commande_show', {'id': commande.id}) }}" class="btn btn-info">Plus d'information</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
