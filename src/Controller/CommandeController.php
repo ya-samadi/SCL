@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Product;
 use App\Entity\Commande;
+use App\Form\CommentType;
 use App\Form\CommandeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,10 +72,31 @@ class CommandeController extends AbstractController
      * 
      * @return Response
      */
-    public function show(Commande $commande)
+    public function show(Commande $commande, Request $request, EntityManagerInterface $manager)
     {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $comment->setProduct($commande->getProduct())
+                    ->setAuthor($this->getUser());
+                    
+            $manager->persist($comment);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Votre commentaire a bien été pris en compte !"
+            );
+        }
+        
         return $this->render('commande/show.html.twig', [
             'commande' => $commande,
+            'form' => $form->createView()
         ]);
     }
 }

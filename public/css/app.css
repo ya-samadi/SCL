@@ -48,3 +48,7 @@ footer {
   white-space: nowrap;
   overflow: hidden;
 }
+
+span.rating i {
+  color: goldenrod;
+}

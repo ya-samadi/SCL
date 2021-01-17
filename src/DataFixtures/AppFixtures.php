@@ -6,6 +6,7 @@ use Faker\Factory;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Comment;
 use App\Entity\Product;
 use App\Entity\Commande;
 use Doctrine\Persistence\ObjectManager;
@@ -124,6 +125,17 @@ class AppFixtures extends Fixture
 				;
 						
 				$manager->persist($commande);
+
+				if (mt_rand(0,1))
+				{
+					$comment = new Comment();
+					$comment->setContent($faker->paragraph())
+							->setRating(mt_rand(1, 5))
+							->setAuthor($commander)
+							->setProduct($product);
+							
+					$manager->persist($comment);
+				}
 			}
 
 			$manager->persist($product);

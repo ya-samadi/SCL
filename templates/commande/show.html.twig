@@ -40,7 +40,7 @@
                     <dt class="col-md-4">Montant total</dt>
                     <dd class="col-md-8">{{commande.amount}} &euro;</dd>
                     <dt class="col-md-4">Commentaire</dt>
-                    <dd class="col-md-8">{{commande.comment}}</dd>
+                    <dd class="col-md-8">{{commande.comment | default('Aucun commentaire')}}</dd>
                 </dl>
                 <hr>
 
@@ -59,7 +59,25 @@
                 </div>
                 {{ owner.description|raw}}
                 <a class="btn btn-primary" href="{{ path('user_show', {'slug': owner.slug}) }}">Plus d'info sur {{ owner.firstName }}</a>
-
+            </div>
+            <div id="comment" class="alert alert-light">
+                <h2 class="alert-heading">Votre avis compte !</h2>
+                {% if date() > date(commande.livraisonDate) %}
+                    {% set comment = commande.product.commentFromAuthor(app.user) %}
+                    {% if comment is not null %}
+                        <blockquote>
+                            {{ comment.content }}
+                        </blockquote>
+                        <strong>Note : </strong> {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+                    {% else %}
+                        {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <button type="submit" class="btn btn-success">Confirmer !</button>
+                        {{ form_end(form) }}
+                    {% endif %}
+                {% else %}
+                    <p>vous ne pourrez pas noter tant que votre produit ne sera pas livrais</p>
+                {% endif %}
             </div>
         </div>
         <div class="col">
