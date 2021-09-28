@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion à l'administration</title>
+    
+    <link rel="stylesheet" href="/css/flatly_bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="fas fa-lock"></i>
+                    Connexion à l'administration
+                </h4>
+            </div>
+            <div class="card-body">
+                <form action="post">
+                    <div class="form-group">
+                        <label for="_email">Email</label>
+                        <input required type="text" name="_username" id="email" class="form-control" placeholder="Adresse email ...">
+                    </div>
+                    <div class="form-group">
+                        <label for="_password">Mot de passe</label>
+                        <input required type="password" name="_password" id="password" class="form-control" placeholder="Mote de passe ...">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-lock-open"></i>
+                            Connexion
+                        </buton>
+                        <a href="{{ path('homepage') }}" class="btn btn-link">
+                            <i class="fas fa-arrow-circle-left"></i>
+                            Retour au site
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

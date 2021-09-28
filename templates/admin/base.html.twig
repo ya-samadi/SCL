@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>S C L - {% block title %}Welcome!{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<link rel="stylesheet" href="/css/flatly_bootstrap.min.css">
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+		<link rel="stylesheet" href="/css/app.css">
+		{% block stylesheets %}{% endblock %}
+	</head>
+	<body>
+		{% include 'admin/partials/header.html.twig' %}
+		{% block body %}{% endblock %}
+		{% include 'admin/partials/footer.html.twig' %}
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.js"
+			integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+			crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>
